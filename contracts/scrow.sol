@@ -1,7 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "./sotocoin.sol";
+interface IERC20 {
+    function transfer(address to, uint256 amount) external returns (bool);
+    function transferFrom(address from, address to, uint256 amount) external returns (bool);
+}
 
 contract TokenEscrow {
     address public owner;
@@ -13,15 +16,14 @@ contract TokenEscrow {
     uint256 public totalTxs;
     uint256 private balanceOwner;
     address[] frogs = [
-        0xBcd4042DE499D14e55001CcbB24a551F3b954096,
-        0x71bE63f3384f5fb98995898A86B02Fb2426c5788,
-        0xFABB0ac9d68B0B445fB7357272Ff202C5651694a
+        0x820FAec66A504901De79fa44D21609d457174f5B,
+        0x6E72F14a6a8c60D3c938B7A14eA7ad3fB6c4a7c9
     ];
     mapping(address => receiverStruct) private tranfers;
 
     constructor(address _token) {
         owner = msg.sender;
-        token = SotoCoin(_token);
+        token = IERC20(_token);
     }
 
     modifier onlyFrogs() {
@@ -51,7 +53,7 @@ contract TokenEscrow {
             _valueTransfer = _amount*1001/1000;
             balanceOwner += uint256(_amount/1000);
         }
-        token.transferFrom(owner, address(this), _valueTransfer);
+        token.transferFrom(msg.sender, address(this), _valueTransfer);
         tranfers[msg.sender] = receiverStruct({
             receiver: _receiver,
             amount: _amount
