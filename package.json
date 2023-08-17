@@ -1,0 +1,20 @@
+{
+  "name": "ethargentina",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy-contract": "npx hardhat run --network localhost ./scripts/deployer.ts",
+    "minter": "npx hardhat run --network localhost ./scripts/minterGiver.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^2.0.0",
+    "hardhat": "^2.17.1"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.9.3"
+  }
+}
